@@ -2,6 +2,9 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
+orbs:
+  slack: circleci/slack@4.1
+  
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
@@ -28,9 +31,36 @@ jobs:
       # 테스트 성공시 good 출력
       - run: echo "good"
 
+  notify:
+    docker:
+      - image: 'cimg/base:stable'
+    steps:
+      - slack/notify:
+          custom: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "plain_text",
+                      "text": "*CICD CircleCI Research sample*",
+                      "emoji": true
+                    }
+                  ]
+                }
+              ]
+            }
+          event: always
+          
 workflows:
   version: 2
   build:
     jobs:
       # 위에서 작성한 job의 이름을 기입하면 된다.
       - build
+
+  send-notification:
+    jobs:
+      - notify:
+          context: slack-secrets
