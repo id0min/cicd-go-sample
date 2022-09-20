@@ -22,9 +22,9 @@ jobs:
       # 소스를 checkout 하는 과정
       - checkout
       # 코드 전체를 컴파일 하는 과정
-      - run: make all
+      - run: go build
       # 테스트 실행
-      - run: make test
+      - run: go test
       # 테스트 성공시 good 출력
       - run: echo "good"
 
