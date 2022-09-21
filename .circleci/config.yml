@@ -44,7 +44,7 @@ jobs:
                   "fields": [
                     {
                       "type": "plain_text",
-                      "text": "*CICD CircleCI Research sample*",
+                      "text": "*CICD CircleCI Research sample* by GitHub",
                       "emoji": true
                     }
                   ]
